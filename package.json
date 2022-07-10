@@ -4,8 +4,8 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
-    "main": "npm run build && node dist/index.js"
+    "main": "npm run build && node dist/index.js",
+    "build": "ncc build src/index.ts -o dist/"
   },
   "author": "Mandeep Ch",
   "license": "ISC",

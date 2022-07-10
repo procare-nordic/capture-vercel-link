@@ -1,6 +1,6 @@
 import { getOctokit, context } from "@actions/github";
 import { Octokit } from "@octokit/action";
-import core from "@actions/core";
+import * as core from "@actions/core";
 
 const cancelAction = async () => {
   if (core.getInput("GITHUB_TOKEN")) {

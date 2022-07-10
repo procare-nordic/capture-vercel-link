@@ -61722,6 +61722,29 @@ try {
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -61731,15 +61754,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const github_1 = __nccwpck_require__(1371);
 const action_1 = __nccwpck_require__(4145);
-const core_1 = __importDefault(__nccwpck_require__(1366));
+const core = __importStar(__nccwpck_require__(1366));
 const cancelAction = () => __awaiter(void 0, void 0, void 0, function* () {
-    if (core_1.default.getInput("GITHUB_TOKEN")) {
+    if (core.getInput("GITHUB_TOKEN")) {
         const octokit = new action_1.Octokit();
         yield octokit.actions.cancelWorkflowRun(Object.assign(Object.assign({}, github_1.context.repo), { run_id: github_1.context.runId }));
         // Wait a maximum of 1 minute for the action to be cancelled.
@@ -61750,7 +61770,7 @@ const cancelAction = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        const kit = (0, github_1.getOctokit)(core_1.default.getInput("PAT"));
+        const kit = (0, github_1.getOctokit)(core.getInput("PAT"));
         const comments = yield kit.rest.issues.listComments({
             issue_number: github_1.context.issue.number,
             owner: github_1.context.repo.owner,
@@ -61765,11 +61785,11 @@ function main() {
             console.log("Vercel comment body not found");
             yield cancelAction();
         }
-        const preview_url_regexp = new RegExp(core_1.default.getInput("preview_url_regexp"));
+        const preview_url_regexp = new RegExp(core.getInput("preview_url_regexp"));
         const regex_matches = vercel_body === null || vercel_body === void 0 ? void 0 : vercel_body.match(preview_url_regexp);
         if (regex_matches != null) {
             const link = regex_matches[1];
-            core_1.default.setOutput("vercer_preview_url", link);
+            core.setOutput("vercer_preview_url", link);
             process.exit(0);
         }
         else {
