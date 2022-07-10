@@ -61790,6 +61790,7 @@ function main() {
         if (regex_matches != null) {
             const link = regex_matches[1];
             core.setOutput("vercer_preview_url", link);
+            console.log(`Found Link: ${link}`);
             process.exit(0);
         }
         else {
