@@ -61789,7 +61789,7 @@ function main() {
         const regex_matches = vercel_body === null || vercel_body === void 0 ? void 0 : vercel_body.match(preview_url_regexp);
         if (regex_matches != null) {
             const link = regex_matches[1];
-            core.setOutput("vercer_preview_url", link);
+            core.setOutput("vercel_preview_url", link);
             console.log(`Found Link: ${link}`);
             process.exit(0);
         }
